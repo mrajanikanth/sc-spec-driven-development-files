@@ -33,7 +33,7 @@ Numbered task groups, in order. Each group is independently reviewable; finishin
 
 Flesh out `Home.tsx` into a single intentional landing page. No navigation, no extra routes — just one page that earns the name. The page is composed inside a `Layout` shell with three subcomponents (`Header`, `Main`, `Footer`) so future pages inherit a complete frame, not just `<html>`.
 
-5.1. Add a `Layout` JSX component at `src/views/Layout.tsx` that owns `<html>`, `<head>` (title, charset, viewport, `/styles.css` link), and `<body>`. The body composes three subcomponents in order: `<Header />`, `<Main>{children}</Main>`, `<Footer />`. Layout itself does not render any other content — the three subcomponents own their slots.
+5.1. Add a `Layout` JSX component at `src/views/Layout.tsx` that owns `<html>`, `<head>` (title, charset, viewport meta `width=device-width, initial-scale=1`, `/styles.css` link), and `<body>`. The viewport meta lives here so no future page can forget it — that is the foundation of the responsive contract from `tech-stack.md`. The body composes three subcomponents in order: `<Header />`, `<Main>{children}</Main>`, `<Footer />`. Layout itself does not render any other content — the three subcomponents own their slots.
 5.2. Add `src/views/Header.tsx`, `src/views/Main.tsx`, and `src/views/Footer.tsx`:
   - `Header` renders a `<header>` with the AgentClinic wordmark. No nav yet.
   - `Main` is a one-prop wrapper that renders `<main>{children}</main>` and owns the page-content width/spacing rules so individual pages don't redeclare them.
@@ -42,20 +42,21 @@ Flesh out `Home.tsx` into a single intentional landing page. No navigation, no e
 5.4. Build a hero section inside `Home.tsx`: an `<h1>` reading "AgentClinic" and a one-line parody tagline drawn from `mission.md` (e.g., "A clinic for overworked AI agents.").
 5.5. Build a "Featured patient" section in `Home.tsx`: a card displaying the featured agent's `name` and `specialty`, with labels that make the parody legible (e.g., "Currently in session" / "Specialty").
 5.6. Apply Tailwind utilities throughout — typography scale, spacing, a centered max-width container, a card treatment for the agent section — so the page reads as intentional in a current evergreen browser. Not a polish pass; just visible intent.
-5.7. Confirm there are no client-side scripts and no images required for the page to look right — Phase 1 stays server-only.
+5.7. **Make every utility mobile-first per `tech-stack.md`:** base classes target ~360px (`px-4`, `py-10`, `p-6`, `text-4xl`, `space-y-8`); `sm:`-prefixed utilities (`sm:px-6`, `sm:py-16`, `sm:p-8`, `sm:text-5xl`, `sm:space-y-12`) step the page up at and above 640px. No fixed pixel widths, no horizontal scroll at 360px.
+5.8. Confirm there are no client-side scripts and no images required for the page to look right — Phase 1 stays server-only.
 
 ## 6. Smoke test / validation suite
 
 Per `specs/tech-stack.md`, Vitest is both our unit-test runner and our feature-validation runner. The Phase 1 smoke test below is also Phase 1's validation suite.
 
 6.1. Add `vitest.config.ts` with the Node environment.
-6.2. Add `src/app.test.ts` that imports the app, calls `app.request('/')`, asserts status 200, and asserts the response HTML contains "AgentClinic", the parody tagline, and the featured agent's name.
+6.2. Add `src/app.test.ts` that imports the app, calls `app.request('/')`, asserts status 200, and asserts the response HTML contains "AgentClinic", the parody tagline, and the featured agent's name. Also assert the **viewport meta tag** and at least one **`sm:` responsive utility** are present — these encode the responsive contract from `tech-stack.md` in the validation gate.
 6.3. Wire `pnpm test` (Vitest once) and `pnpm test:watch` (watch mode) in `package.json`. Also wire `pnpm validate` as an alias for `vitest run` — this is the entrypoint `validation.md` will call.
 
 ## 7. Verification pass
 
 7.1. Run `pnpm install` clean and confirm the lockfile is sane.
-7.2. Run `pnpm dev`, open the page in a browser, confirm the hero, the agent card, and Tailwind styling are all present.
+7.2. Run `pnpm dev`, open the page in a browser, confirm the hero, the agent card, and Tailwind styling are all present. Resize the viewport (or use devtools device mode) to 375px, 768px, and 1280px — confirm no horizontal scroll and that spacing/type scale step up at `sm:` and above.
 7.3. Run `pnpm build` then `pnpm start`, confirm the built artifact serves the same page with styles.
 7.4. Run `pnpm validate` (Vitest, per the constitution's validation contract) and `pnpm exec tsc --noEmit` — both clean.
 7.5. Update `README.md` with the two commands a student needs: install and dev.

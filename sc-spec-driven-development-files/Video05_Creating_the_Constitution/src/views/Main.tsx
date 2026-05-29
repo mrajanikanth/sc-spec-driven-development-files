@@ -5,5 +5,7 @@ type MainProps = {
 };
 
 export function Main({ children }: MainProps) {
-  return <main class="mx-auto w-full max-w-3xl flex-1 px-6 py-16">{children}</main>;
+  return (
+    <main class="mx-auto w-full max-w-3xl flex-1 px-4 py-10 sm:px-6 sm:py-16">{children}</main>
+  );
 }
