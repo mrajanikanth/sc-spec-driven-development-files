@@ -11,4 +11,7 @@ yarn-error.log*
 
 .vscode/*
 
-/public/styles.css
+/public/pico.min.css
+
+/data/*
+!/data/.gitkeep

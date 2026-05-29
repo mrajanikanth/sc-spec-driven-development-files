@@ -37,7 +37,7 @@ Flesh out `Home.tsx` into a single intentional landing page. No navigation, no e
 5.2. Add `src/views/Header.tsx`, `src/views/Main.tsx`, and `src/views/Footer.tsx`:
   - `Header` renders a `<header>` with the AgentClinic wordmark. No nav yet.
   - `Main` is a one-prop wrapper that renders `<main>{children}</main>` and owns the page-content width/spacing rules so individual pages don't redeclare them.
-  - `Footer` renders a `<footer>` with a single parody-flavored line. Minimal on purpose — Phase 6 will polish it.
+  - `Footer` renders a `<footer>` with a single parody-flavored line. Minimal on purpose — Phase 3 will polish it.
 5.3. Add a hand-authored `src/styles/layout.css` for layout-frame rules that don't belong in Tailwind utility classes (e.g., a body grid that pins the footer to the bottom, hairline borders on header/footer). Import it from `src/styles/input.css` via `@import './layout.css';` ahead of the `@tailwind` directives so it ships in the same `public/styles.css` bundle that the Layout already `<link>`s.
 5.4. Build a hero section inside `Home.tsx`: an `<h1>` reading "AgentClinic" and a one-line parody tagline drawn from `mission.md` (e.g., "A clinic for overworked AI agents.").
 5.5. Build a "Featured patient" section in `Home.tsx`: a card displaying the featured agent's `name` and `specialty`, with labels that make the parody legible (e.g., "Currently in session" / "Specialty").

@@ -26,17 +26,21 @@ Alternatives considered: Express (mature but untyped routing), Fastify (great, b
 
 ## Styling
 
-- **Tailwind CSS** for utility-first styling that still looks intentional — supports Steve's "attractive in a modern browser" pillar without a design system buildout.
+- **[PicoCSS](https://picocss.com/)** as the styling layer — a minimal semantic CSS framework that styles standard HTML elements (forms, articles, nav, tables) attractively without a utility-class vocabulary. Supports Steve's "attractive in a modern browser" pillar without a design system buildout, and keeps the templates readable to students because the HTML stays semantic.
+- Pico ships as a single static CSS file (`pico.min.css`); we vendor it into `public/` via a one-line `pnpm css` script that copies it out of `node_modules/@picocss/pico/css/`. No build pipeline, no PostCSS step, no JIT compilation.
+- A small hand-authored `public/styles.css` ships beside it for frame rules and overrides that don't earn a Pico component (header layout, footer pinning, occasional page-specific tweaks). Pico is linked first; the custom sheet second so its rules win.
+
+Alternatives considered: Tailwind (great utility-first model, but the build pipeline and class soup cost more than they save at this scale); Bootstrap (heavier and more opinionated than we need); plain hand-rolled CSS (more work, less polished default look — Steve's pillar suffers).
 
 ## Responsive design
 
 The product is responsive by contract, not as an afterthought.
 
-- **Mobile-first.** Base utility classes target the smallest supported width (360px); larger screens are progressive enhancements layered via Tailwind's responsive prefixes (`sm:`, `md:`, `lg:`, `xl:`).
+- **Pico is mobile-first and responsive by default.** Its container, typography, and form components fluidly adapt across the supported widths without us authoring breakpoint-specific rules. Where a page needs more than Pico provides (e.g., a dashboard's two-column-at-desktop / single-column-at-phone split), we use `<div class="grid">` (Pico's auto-balanced grid) or a small `@media (min-width: ...)` block in `public/styles.css`.
 - **Supported widths:** 360px → 1440px+. Phones, tablets, and desktops are all first-class; a page that breaks at any width in that range is broken, per `mission.md`.
 - **Every page ships with `<meta name="viewport" content="width=device-width, initial-scale=1" />`** in its `<head>`. The shared `Layout` component owns this so individual pages cannot forget it.
-- **No horizontal scroll** on any supported width. Containers use fluid widths with capped max-widths; padding scales with the breakpoint.
-- **Type, spacing, and component density scale with the breakpoint** — e.g. card padding and heading sizes step up at `sm:` and above rather than rendering desktop-grade chrome on a phone.
+- **No horizontal scroll** on any supported width. Pages wrap their primary content in `<main class="container">` so Pico's fluid container handles widths and padding.
+- **Component density follows Pico's defaults.** Card padding (`<article>`), form input sizing, and heading scale come from Pico; we override only when a page genuinely needs it.
 - **Validation includes responsive checks** at three widths: 375px (phone), 768px (tablet), 1280px (desktop). See each feature's `validation.md`.
 
 ## Data
