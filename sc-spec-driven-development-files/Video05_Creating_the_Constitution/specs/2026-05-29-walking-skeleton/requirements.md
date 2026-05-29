@@ -9,7 +9,7 @@ In scope:
 - A single `/` route on a Hono app that returns server-rendered JSX.
 - One hard-coded `Agent` record defined in a typed module and imported by the route.
 - A minimal AgentClinic home page rendered at `/` with three pieces:
-  - A reusable layout shell (`<html>`/`<head>`/`<body>`) that future pages can inherit.
+  - A reusable layout shell (`<html>`/`<head>`/`<body>`) that future pages can inherit, composed of a `Header`, `Main`, and `Footer` subcomponent — each in its own file under `src/views/`.
   - A hero section with an `<h1>` reading "AgentClinic" and a one-line parody tagline drawn from the mission.
   - A "Featured patient" card displaying the agent's `name` and `specialty` with parody-flavored labels.
 - Tailwind CSS wired into the build and visibly styling the page.
@@ -31,6 +31,7 @@ Out of scope (deferred to later phases):
 - **Agent record shape: minimal `{ id, name, specialty }`.** Three fields, all `string`. Enough to demonstrate typed data flow without prejudging the Phase 2 agent model. The record lives in a single typed module that the route imports — no data layer yet, but the shape of one.
 - **Tailwind via the Tailwind CLI to a static CSS file.** `tailwindcss` watches/builds into `public/styles.css`; Hono serves the file via static middleware. This matches the tech-stack pillar of "predictable behavior over clever behavior" and avoids pulling Vite plugins into Phase 1. Vite-driven asset processing is a Phase 2+ decision if it earns its place.
 - **Home page shape: hero + one featured-agent card, no nav.** The page commits to the parody on first paint without bringing forward any Phase 2+ surface area. A reusable `Layout` component owns the document shell so later phases inherit it instead of reinventing it.
+- **Layout split into one component per file.** `Layout` only owns the document scaffold; `Header`, `Main`, and `Footer` each live in their own file under `src/views/` (`Header.tsx`, `Main.tsx`, `Footer.tsx`) and `Layout.tsx` composes them. Phase 1 already has more than one region worth naming, and the per-file split sets the precedent before later phases add real content to any of them — so growth happens by editing one small file, not by hunting through a big one.
 - **`tsx` for dev, `tsc` for build.** Smallest toolchain that satisfies the roadmap's `pnpm dev` / `pnpm build` requirement. No Vite yet; introducing it now would violate the "earn its place" rule.
 - **One Vitest smoke test, not a full suite.** Establishes the testing pattern early so Phase 2 inherits it, but does not over-invest before there's surface area to test.
 

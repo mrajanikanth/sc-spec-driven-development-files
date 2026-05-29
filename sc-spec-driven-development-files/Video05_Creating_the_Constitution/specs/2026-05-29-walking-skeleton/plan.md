@@ -31,13 +31,18 @@ Numbered task groups, in order. Each group is independently reviewable; finishin
 
 ## 5. Minimal AgentClinic home page
 
-Flesh out `Home.tsx` into a single intentional landing page. Still no navigation, no footer, no extra routes — just one page that earns the name.
+Flesh out `Home.tsx` into a single intentional landing page. No navigation, no extra routes — just one page that earns the name. The page is composed inside a `Layout` shell with three subcomponents (`Header`, `Main`, `Footer`) so future pages inherit a complete frame, not just `<html>`.
 
-5.1. Add a `Layout` JSX component (in the same file or `src/views/Layout.tsx`) that owns `<html>`, `<head>` (title, charset, viewport, `/styles.css` link), and `<body>` — so future pages inherit the shell.
-5.2. Build a hero section: an `<h1>` reading "AgentClinic" and a one-line parody tagline drawn from `mission.md` (e.g., "A clinic for overworked AI agents.").
-5.3. Build a "Featured patient" section: a card displaying the featured agent's `name` and `specialty`, with labels that make the parody legible (e.g., "Currently in session" / "Specialty").
-5.4. Apply Tailwind utilities throughout — typography scale, spacing, a centered max-width container, a card treatment for the agent section — so the page reads as intentional in a current evergreen browser. Not a polish pass; just visible intent.
-5.5. Confirm there are no client-side scripts and no images required for the page to look right — Phase 1 stays server-only.
+5.1. Add a `Layout` JSX component at `src/views/Layout.tsx` that owns `<html>`, `<head>` (title, charset, viewport, `/styles.css` link), and `<body>`. The body composes three subcomponents in order: `<Header />`, `<Main>{children}</Main>`, `<Footer />`. Layout itself does not render any other content — the three subcomponents own their slots.
+5.2. Add `src/views/Header.tsx`, `src/views/Main.tsx`, and `src/views/Footer.tsx`:
+  - `Header` renders a `<header>` with the AgentClinic wordmark. No nav yet.
+  - `Main` is a one-prop wrapper that renders `<main>{children}</main>` and owns the page-content width/spacing rules so individual pages don't redeclare them.
+  - `Footer` renders a `<footer>` with a single parody-flavored line. Minimal on purpose — Phase 6 will polish it.
+5.3. Add a hand-authored `src/styles/layout.css` for layout-frame rules that don't belong in Tailwind utility classes (e.g., a body grid that pins the footer to the bottom, hairline borders on header/footer). Import it from `src/styles/input.css` via `@import './layout.css';` ahead of the `@tailwind` directives so it ships in the same `public/styles.css` bundle that the Layout already `<link>`s.
+5.4. Build a hero section inside `Home.tsx`: an `<h1>` reading "AgentClinic" and a one-line parody tagline drawn from `mission.md` (e.g., "A clinic for overworked AI agents.").
+5.5. Build a "Featured patient" section in `Home.tsx`: a card displaying the featured agent's `name` and `specialty`, with labels that make the parody legible (e.g., "Currently in session" / "Specialty").
+5.6. Apply Tailwind utilities throughout — typography scale, spacing, a centered max-width container, a card treatment for the agent section — so the page reads as intentional in a current evergreen browser. Not a polish pass; just visible intent.
+5.7. Confirm there are no client-side scripts and no images required for the page to look right — Phase 1 stays server-only.
 
 ## 6. Smoke test
 

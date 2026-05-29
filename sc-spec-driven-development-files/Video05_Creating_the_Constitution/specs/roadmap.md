@@ -2,7 +2,7 @@
 
 High-level order of work, broken into deliberately small phases. Each phase is shippable and observable; nothing in a later phase is required for an earlier phase to be "done."
 
-## Phase 1 — Walking skeleton
+## Phase 1 — Walking skeleton ✅ Complete
 
 A vertical slice that proves the stack works end to end.
 
@@ -10,6 +10,8 @@ A vertical slice that proves the stack works end to end.
 - One typed data record (e.g., a hard-coded "Agent") flows from the server into the rendered page.
 - Tailwind is wired up and visibly styling the page.
 - `pnpm dev` and `pnpm build` both work.
+
+Shipped on branch `2026-05-29-walking-skeleton`. See `specs/2026-05-29-walking-skeleton/` for requirements, plan, and validation.
 
 ## Phase 2 — Agent directory
 
