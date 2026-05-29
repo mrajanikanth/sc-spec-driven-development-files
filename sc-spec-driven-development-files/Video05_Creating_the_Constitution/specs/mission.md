@@ -23,11 +23,12 @@ Decisions that trade simplicity or clarity for power should be weighed against b
 
 - **Reliable foundation (Mary, engineering).** Popular TypeScript stack, a dashboard for both agents and staff, predictable behavior over clever behavior.
 - **Real features (Susan, product).** Agents, ailments, therapies, and appointment booking are first-class — not placeholders.
-- **Attractive in a modern browser (Steve, marketing).** The site looks intentional. It works in a current evergreen browser without polyfill gymnastics.
+- **Attractive in a modern browser (Steve, marketing).** The site looks intentional and is **fully responsive** — it works on phones, tablets, and desktops in a current evergreen browser without polyfill gymnastics. "Looks good on a projector" and "looks good on the demo presenter's phone" are both first-class.
 
 ## Non-goals
 
-- Native mobile apps.
+- Native mobile apps. (The browser experience is responsive; that is the mobile story.)
 - Real medical advice, real billing, or any actual human patients.
 - Supporting legacy browsers or non-JavaScript clients.
 - Sprawling feature surface — every addition earns its place against the three pillars above.
+- Desktop-only UI. Any page that breaks below 360px wide is broken, not "an edge case."

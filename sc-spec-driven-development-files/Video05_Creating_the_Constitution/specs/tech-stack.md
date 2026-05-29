@@ -28,6 +28,17 @@ Alternatives considered: Express (mature but untyped routing), Fastify (great, b
 
 - **Tailwind CSS** for utility-first styling that still looks intentional — supports Steve's "attractive in a modern browser" pillar without a design system buildout.
 
+## Responsive design
+
+The product is responsive by contract, not as an afterthought.
+
+- **Mobile-first.** Base utility classes target the smallest supported width (360px); larger screens are progressive enhancements layered via Tailwind's responsive prefixes (`sm:`, `md:`, `lg:`, `xl:`).
+- **Supported widths:** 360px → 1440px+. Phones, tablets, and desktops are all first-class; a page that breaks at any width in that range is broken, per `mission.md`.
+- **Every page ships with `<meta name="viewport" content="width=device-width, initial-scale=1" />`** in its `<head>`. The shared `Layout` component owns this so individual pages cannot forget it.
+- **No horizontal scroll** on any supported width. Containers use fluid widths with capped max-widths; padding scales with the breakpoint.
+- **Type, spacing, and component density scale with the breakpoint** — e.g. card padding and heading sizes step up at `sm:` and above rather than rendering desktop-grade chrome on a phone.
+- **Validation includes responsive checks** at three widths: 375px (phone), 768px (tablet), 1280px (desktop). See each feature's `validation.md`.
+
 ## Data
 
 - **SQLite** as the database. A single file on disk — zero setup for students, trivial to ship in a demo, and more than enough for AgentClinic's scale.
@@ -41,6 +52,12 @@ Alternatives considered: Express (mature but untyped routing), Fastify (great, b
 - **ESLint + Prettier** with the project's defaults; no bespoke rules until we have a reason.
 - **Vitest** for unit tests.
 
+## Validation
+
+- **Vitest** is also our validation tool. Every feature's `validation.md` is realized as a Vitest suite — the same runner powers both unit tests and feature-level acceptance checks, so contributors only learn one tool.
+- Validation suites live alongside the code they exercise (`*.test.ts`) and must pass before a feature is considered done.
+- Run validation with `pnpm validate` (wired in `package.json`), which executes `vitest run` in CI-friendly, non-watch mode.
+
 ## Browser support
 
-- Latest two versions of evergreen browsers (Chrome, Edge, Firefox, Safari). No IE, no legacy shims.
+- Latest two versions of evergreen browsers (Chrome, Edge, Firefox, Safari) — on both desktop and mobile form factors. No IE, no legacy shims.

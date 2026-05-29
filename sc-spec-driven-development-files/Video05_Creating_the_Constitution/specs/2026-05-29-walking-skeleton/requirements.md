@@ -13,9 +13,10 @@ In scope:
   - A hero section with an `<h1>` reading "AgentClinic" and a one-line parody tagline drawn from the mission.
   - A "Featured patient" card displaying the agent's `name` and `specialty` with parody-flavored labels.
 - Tailwind CSS wired into the build and visibly styling the page.
+- The page is **fully responsive across 360–1440px+**, per the tech-stack constitution: mobile-first utilities, viewport meta tag, no horizontal scroll, type and spacing that scale at the `sm:` breakpoint.
 - `pnpm dev` runs the app locally with reload-on-save.
 - `pnpm build` produces a runnable production artifact.
-- A Vitest smoke test that hits `/` and asserts the agent's name appears in the response.
+- A Vitest smoke test that hits `/` and asserts the agent's name appears in the response. This same suite is the feature's validation surface — runnable via `pnpm validate` per the tech-stack constitution.
 - `tsc --noEmit` is clean in `strict` mode across server code.
 
 Out of scope (deferred to later phases):
@@ -33,7 +34,8 @@ Out of scope (deferred to later phases):
 - **Home page shape: hero + one featured-agent card, no nav.** The page commits to the parody on first paint without bringing forward any Phase 2+ surface area. A reusable `Layout` component owns the document shell so later phases inherit it instead of reinventing it.
 - **Layout split into one component per file.** `Layout` only owns the document scaffold; `Header`, `Main`, and `Footer` each live in their own file under `src/views/` (`Header.tsx`, `Main.tsx`, `Footer.tsx`) and `Layout.tsx` composes them. Phase 1 already has more than one region worth naming, and the per-file split sets the precedent before later phases add real content to any of them — so growth happens by editing one small file, not by hunting through a big one.
 - **`tsx` for dev, `tsc` for build.** Smallest toolchain that satisfies the roadmap's `pnpm dev` / `pnpm build` requirement. No Vite yet; introducing it now would violate the "earn its place" rule.
-- **One Vitest smoke test, not a full suite.** Establishes the testing pattern early so Phase 2 inherits it, but does not over-invest before there's surface area to test.
+- **Responsive defaults live in the Layout shell and the page itself.** Mobile-first base utilities (`px-4`, `py-10`, `text-4xl`) with `sm:` upscales (`sm:px-6`, `sm:py-16`, `sm:text-5xl`). The viewport meta tag lives in `Layout.tsx` so future pages cannot forget it. This establishes the responsive pattern Phase 2+ inherits.
+- **One Vitest smoke test, not a full suite.** Establishes the testing pattern early so Phase 2 inherits it, but does not over-invest before there's surface area to test. The same suite doubles as the feature's validation run (`pnpm validate`) — one runner for unit tests and feature acceptance, per the constitution.
 
 ## Context
 

@@ -2,6 +2,8 @@
 
 High-level order of work, broken into deliberately small phases. Each phase is shippable and observable; nothing in a later phase is required for an earlier phase to be "done."
 
+**Cross-cutting requirement, every phase:** every page shipped in every phase is fully responsive across 360–1440px+, per `tech-stack.md`. Responsive design is not a Phase 6 polish item — it is a definition-of-done condition that travels with every feature.
+
 ## Phase 1 — Walking skeleton ✅ Complete
 
 A vertical slice that proves the stack works end to end.
@@ -39,6 +41,7 @@ Shipped on branch `2026-05-29-walking-skeleton`. See `specs/2026-05-29-walking-s
 ## Phase 6 — Polish for demo
 
 - Visual pass for Steve: typography, spacing, empty states, hero copy that sells the parody.
+- Responsive polish pass: targeted tweaks at the awkward in-between widths surfaced during phases 1–5 (responsive correctness itself is already a per-phase requirement, not deferred here).
 - 404 page, basic error page, and a sensible favicon.
 - Smoke test that exercises Phases 1–5 in a single run.
 

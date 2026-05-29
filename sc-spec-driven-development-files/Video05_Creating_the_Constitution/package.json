@@ -11,7 +11,8 @@
     "css": "tailwindcss -i ./src/styles/input.css -o ./public/styles.css --minify",
     "css:watch": "tailwindcss -i ./src/styles/input.css -o ./public/styles.css --watch",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "validate": "vitest run"
   },
   "dependencies": {
     "@hono/node-server": "^1.13.7",
