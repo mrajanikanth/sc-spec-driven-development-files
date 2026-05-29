@@ -22,8 +22,8 @@ In scope:
 Out of scope (deferred to later phases):
 
 - The `/agents` list and `/agents/:id` detail pages (Phase 2).
-- Any persistent data layer or SQLite wiring (Phase 3+).
-- Navigation between pages, footer, 404/error pages (Phase 6).
+- Any persistent data layer or SQLite wiring (Phase 2+).
+- Navigation between pages, footer, 404/error pages (Phase 3).
 - Polish-grade typography, hero imagery, or copywriting beyond the one parody tagline.
 - Client-side interactivity or any framework on the client.
 
@@ -45,4 +45,4 @@ The three stakeholder pillars apply even at this size:
 
 - **Mary (reliable foundation):** strict TypeScript, predictable scripts, no clever build steps.
 - **Susan (real features):** the agent record, however minimal, is shaped like a real domain object — not "Hello, world."
-- **Steve (attractive in a modern browser):** Tailwind is visibly doing work on the page; the skeleton looks intentional even before Phase 6 polishes it.
+- **Steve (attractive in a modern browser):** Tailwind is visibly doing work on the page; the skeleton looks intentional even before Phase 3 polishes it.

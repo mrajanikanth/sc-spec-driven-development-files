@@ -6,14 +6,18 @@ A clinic — for AI agents. See `specs/mission.md` for the framing.
 
 ```bash
 pnpm install
+pnpm db:seed
 pnpm dev
 ```
 
-Then open <http://localhost:3000>.
+Then open <http://localhost:3000>. The first run creates `data/agentclinic.db` (gitignored), applies migrations from `src/db/migrations/`, and loads the demo agents/ailments/therapies.
 
 ## Other scripts
 
-- `pnpm build` — compile the server to `dist/` and build `public/styles.css`.
+- `pnpm css` — vendor `pico.min.css` from `@picocss/pico` into `public/`.
+- `pnpm db:migrate` — run pending SQL migrations against `data/agentclinic.db` (idempotent).
+- `pnpm db:seed` — wipe and re-populate the seed tables (agents, ailments, therapies, joins). Leaves `appointments` alone.
+- `pnpm build` — vendor Pico, then compile the server to `dist/`.
 - `pnpm start` — run the built artifact on `PORT` (default `3000`).
 - `pnpm test` — run the Vitest unit/smoke tests once.
 - `pnpm validate` — run the same Vitest suite as the feature-validation gate (see `specs/tech-stack.md`).

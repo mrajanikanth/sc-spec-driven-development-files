@@ -1,0 +1,74 @@
+/* Frame rules that Pico does not own. Pico styles components; this sheet
+   handles the document-level scaffold (footer pinning + header/footer
+   separators) and a few small page tweaks. */
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+body > main {
+  flex: 1 0 auto;
+}
+
+body > header {
+  border-bottom: 1px solid var(--pico-muted-border-color);
+}
+
+body > footer {
+  border-top: 1px solid var(--pico-muted-border-color);
+}
+
+/* Header nav: wordmark on the left, links on the right. Pico styles `nav > ul`
+   horizontally already; we just pin the two groups to opposite sides. */
+body > header > nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--pico-spacing);
+  align-items: center;
+  justify-content: space-between;
+}
+
+body > header > nav > ul {
+  margin: 0;
+}
+
+/* The wordmark looks more intentional with a touch more letter-spacing. */
+.wordmark {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.9em;
+}
+
+/* Inline validation errors rendered as <small> under aria-invalid fields. */
+[aria-invalid='true'] + small {
+  color: var(--pico-form-element-invalid-active-border-color);
+  display: block;
+  margin-top: calc(var(--pico-spacing) * -0.25);
+}
+
+/* Card collections (AgentsList) — auto-fill so cards never collapse to tiny
+   columns at desktop and stack cleanly on phone. Pico's own `.grid` is
+   form-section scaffolding that splits every child into one row, which is
+   wrong for variable-length card lists. */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+  gap: var(--pico-spacing);
+}
+
+/* Dashboard's two-column split: side-by-side from tablet up; stacked on
+   phone. Pico's `.grid` only flips to two columns at ≥992px, which leaves
+   the 768px iPad in single-column territory — below the "tablet first-class"
+   bar from specs/tech-stack.md. */
+.split-grid {
+  display: grid;
+  gap: var(--pico-spacing);
+}
+
+@media (min-width: 768px) {
+  .split-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
