@@ -15,7 +15,7 @@ In scope:
 - Tailwind CSS wired into the build and visibly styling the page.
 - `pnpm dev` runs the app locally with reload-on-save.
 - `pnpm build` produces a runnable production artifact.
-- A Vitest smoke test that hits `/` and asserts the agent's name appears in the response.
+- A Vitest smoke test that hits `/` and asserts the agent's name appears in the response. This same suite is the feature's validation surface — runnable via `pnpm validate` per the tech-stack constitution.
 - `tsc --noEmit` is clean in `strict` mode across server code.
 
 Out of scope (deferred to later phases):
@@ -33,7 +33,7 @@ Out of scope (deferred to later phases):
 - **Home page shape: hero + one featured-agent card, no nav.** The page commits to the parody on first paint without bringing forward any Phase 2+ surface area. A reusable `Layout` component owns the document shell so later phases inherit it instead of reinventing it.
 - **Layout split into one component per file.** `Layout` only owns the document scaffold; `Header`, `Main`, and `Footer` each live in their own file under `src/views/` (`Header.tsx`, `Main.tsx`, `Footer.tsx`) and `Layout.tsx` composes them. Phase 1 already has more than one region worth naming, and the per-file split sets the precedent before later phases add real content to any of them — so growth happens by editing one small file, not by hunting through a big one.
 - **`tsx` for dev, `tsc` for build.** Smallest toolchain that satisfies the roadmap's `pnpm dev` / `pnpm build` requirement. No Vite yet; introducing it now would violate the "earn its place" rule.
-- **One Vitest smoke test, not a full suite.** Establishes the testing pattern early so Phase 2 inherits it, but does not over-invest before there's surface area to test.
+- **One Vitest smoke test, not a full suite.** Establishes the testing pattern early so Phase 2 inherits it, but does not over-invest before there's surface area to test. The same suite doubles as the feature's validation run (`pnpm validate`) — one runner for unit tests and feature acceptance, per the constitution.
 
 ## Context
 

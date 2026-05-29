@@ -44,16 +44,18 @@ Flesh out `Home.tsx` into a single intentional landing page. No navigation, no e
 5.6. Apply Tailwind utilities throughout — typography scale, spacing, a centered max-width container, a card treatment for the agent section — so the page reads as intentional in a current evergreen browser. Not a polish pass; just visible intent.
 5.7. Confirm there are no client-side scripts and no images required for the page to look right — Phase 1 stays server-only.
 
-## 6. Smoke test
+## 6. Smoke test / validation suite
+
+Per `specs/tech-stack.md`, Vitest is both our unit-test runner and our feature-validation runner. The Phase 1 smoke test below is also Phase 1's validation suite.
 
 6.1. Add `vitest.config.ts` with the Node environment.
 6.2. Add `src/app.test.ts` that imports the app, calls `app.request('/')`, asserts status 200, and asserts the response HTML contains "AgentClinic", the parody tagline, and the featured agent's name.
-6.3. Wire `pnpm test` to run Vitest once and `pnpm test:watch` for the watch mode.
+6.3. Wire `pnpm test` (Vitest once) and `pnpm test:watch` (watch mode) in `package.json`. Also wire `pnpm validate` as an alias for `vitest run` — this is the entrypoint `validation.md` will call.
 
 ## 7. Verification pass
 
 7.1. Run `pnpm install` clean and confirm the lockfile is sane.
 7.2. Run `pnpm dev`, open the page in a browser, confirm the hero, the agent card, and Tailwind styling are all present.
 7.3. Run `pnpm build` then `pnpm start`, confirm the built artifact serves the same page with styles.
-7.4. Run `pnpm test` and `pnpm exec tsc --noEmit` — both clean.
+7.4. Run `pnpm validate` (Vitest, per the constitution's validation contract) and `pnpm exec tsc --noEmit` — both clean.
 7.5. Update `README.md` with the two commands a student needs: install and dev.

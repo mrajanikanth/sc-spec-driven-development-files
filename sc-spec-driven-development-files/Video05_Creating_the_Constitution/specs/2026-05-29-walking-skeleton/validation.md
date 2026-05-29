@@ -6,7 +6,7 @@ The phase is mergeable when every check below passes from a clean clone.
 
 - `pnpm install` completes without errors or peer-dep warnings worth flagging.
 - `pnpm exec tsc --noEmit` exits 0 with `strict` on.
-- `pnpm test` runs the Vitest smoke test and it passes:
+- `pnpm validate` runs the Vitest validation suite (the same one wired as `pnpm test`, per the constitution's "Vitest is also our validation tool" contract) and it passes:
   - `GET /` returns HTTP 200.
   - Response body contains the string `AgentClinic`.
   - Response body contains the parody tagline rendered in the hero.

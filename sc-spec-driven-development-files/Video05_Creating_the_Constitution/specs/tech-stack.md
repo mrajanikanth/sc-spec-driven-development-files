@@ -41,6 +41,12 @@ Alternatives considered: Express (mature but untyped routing), Fastify (great, b
 - **ESLint + Prettier** with the project's defaults; no bespoke rules until we have a reason.
 - **Vitest** for unit tests.
 
+## Validation
+
+- **Vitest** is also our validation tool. Every feature's `validation.md` is realized as a Vitest suite — the same runner powers both unit tests and feature-level acceptance checks, so contributors only learn one tool.
+- Validation suites live alongside the code they exercise (`*.test.ts`) and must pass before a feature is considered done.
+- Run validation with `pnpm validate` (wired in `package.json`), which executes `vitest run` in CI-friendly, non-watch mode.
+
 ## Browser support
 
 - Latest two versions of evergreen browsers (Chrome, Edge, Firefox, Safari). No IE, no legacy shims.

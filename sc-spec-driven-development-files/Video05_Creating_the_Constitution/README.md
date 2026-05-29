@@ -15,7 +15,8 @@ Then open <http://localhost:3000>.
 
 - `pnpm build` — compile the server to `dist/` and build `public/styles.css`.
 - `pnpm start` — run the built artifact on `PORT` (default `3000`).
-- `pnpm test` — run the Vitest smoke test.
+- `pnpm test` — run the Vitest unit/smoke tests once.
+- `pnpm validate` — run the same Vitest suite as the feature-validation gate (see `specs/tech-stack.md`).
 
 ## Stakeholder pillars
 
