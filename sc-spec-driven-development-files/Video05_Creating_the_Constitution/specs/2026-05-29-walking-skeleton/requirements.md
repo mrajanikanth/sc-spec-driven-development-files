@@ -1,0 +1,45 @@
+# Requirements — Walking skeleton
+
+Phase 1 of the roadmap. A vertical slice that proves the stack works end to end: Hono serves a single JSX page, a typed `Agent` record flows from server to render, Tailwind styles the page, and both `pnpm dev` and `pnpm build` work.
+
+## Scope
+
+In scope:
+
+- A single `/` route on a Hono app that returns server-rendered JSX.
+- One hard-coded `Agent` record defined in a typed module and imported by the route.
+- A minimal AgentClinic home page rendered at `/` with three pieces:
+  - A reusable layout shell (`<html>`/`<head>`/`<body>`) that future pages can inherit.
+  - A hero section with an `<h1>` reading "AgentClinic" and a one-line parody tagline drawn from the mission.
+  - A "Featured patient" card displaying the agent's `name` and `specialty` with parody-flavored labels.
+- Tailwind CSS wired into the build and visibly styling the page.
+- `pnpm dev` runs the app locally with reload-on-save.
+- `pnpm build` produces a runnable production artifact.
+- A Vitest smoke test that hits `/` and asserts the agent's name appears in the response.
+- `tsc --noEmit` is clean in `strict` mode across server code.
+
+Out of scope (deferred to later phases):
+
+- The `/agents` list and `/agents/:id` detail pages (Phase 2).
+- Any persistent data layer or SQLite wiring (Phase 3+).
+- Navigation between pages, footer, 404/error pages (Phase 6).
+- Polish-grade typography, hero imagery, or copywriting beyond the one parody tagline.
+- Client-side interactivity or any framework on the client.
+
+## Decisions
+
+- **Agent record shape: minimal `{ id, name, specialty }`.** Three fields, all `string`. Enough to demonstrate typed data flow without prejudging the Phase 2 agent model. The record lives in a single typed module that the route imports — no data layer yet, but the shape of one.
+- **Tailwind via the Tailwind CLI to a static CSS file.** `tailwindcss` watches/builds into `public/styles.css`; Hono serves the file via static middleware. This matches the tech-stack pillar of "predictable behavior over clever behavior" and avoids pulling Vite plugins into Phase 1. Vite-driven asset processing is a Phase 2+ decision if it earns its place.
+- **Home page shape: hero + one featured-agent card, no nav.** The page commits to the parody on first paint without bringing forward any Phase 2+ surface area. A reusable `Layout` component owns the document shell so later phases inherit it instead of reinventing it.
+- **`tsx` for dev, `tsc` for build.** Smallest toolchain that satisfies the roadmap's `pnpm dev` / `pnpm build` requirement. No Vite yet; introducing it now would violate the "earn its place" rule.
+- **One Vitest smoke test, not a full suite.** Establishes the testing pattern early so Phase 2 inherits it, but does not over-invest before there's surface area to test.
+
+## Context
+
+This is the first feature branch off the constitution. There is no existing application code in `src/` beyond the placeholder. Everything wired here sets a precedent for how later phases will look, so the bias is toward boringly conventional choices — students reading the repo end-to-end should not have to learn anything exotic to understand Phase 1.
+
+The three stakeholder pillars apply even at this size:
+
+- **Mary (reliable foundation):** strict TypeScript, predictable scripts, no clever build steps.
+- **Susan (real features):** the agent record, however minimal, is shaped like a real domain object — not "Hello, world."
+- **Steve (attractive in a modern browser):** Tailwind is visibly doing work on the page; the skeleton looks intentional even before Phase 6 polishes it.
