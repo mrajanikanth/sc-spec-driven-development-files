@@ -3,6 +3,8 @@ import { serveStatic } from '@hono/node-server/serve-static';
 import { getFeaturedAgent } from './db/index.js';
 import { Home } from './views/Home.js';
 import { Layout } from './views/Layout.js';
+import { NotFound } from './views/NotFound.js';
+import { ServerError } from './views/ServerError.js';
 import { agentsRoutes } from './routes/agents.js';
 import { appointmentsRoutes } from './routes/appointments.js';
 import { dashboardRoutes } from './routes/dashboard.js';
@@ -12,6 +14,7 @@ export function createApp() {
 
   app.use('/pico.min.css', serveStatic({ path: './public/pico.min.css' }));
   app.use('/styles.css', serveStatic({ path: './public/styles.css' }));
+  app.use('/favicon.svg', serveStatic({ path: './public/favicon.svg' }));
 
   app.get('/', (c) => {
     const agent = getFeaturedAgent();
@@ -31,6 +34,12 @@ export function createApp() {
   app.route('/agents', agentsRoutes);
   app.route('/dashboard', dashboardRoutes);
   app.route('/', appointmentsRoutes);
+
+  app.notFound((c) => c.html(<NotFound />, 404));
+  app.onError((err, c) => {
+    console.error(err);
+    return c.html(<ServerError />, 500);
+  });
 
   return app;
 }

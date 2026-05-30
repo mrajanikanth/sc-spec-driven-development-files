@@ -25,7 +25,10 @@ export function AppointmentConfirmation({ appointment }: AppointmentConfirmation
         <header>
           <hgroup>
             <h1>Appointment booked</h1>
-            <p>The clinic will see {appointment.agentName} at the scheduled time.</p>
+            <p>
+              {appointment.agentName} has been admitted to the schedule. Please
+              arrive with all context windows closed and temperature set to 0.7.
+            </p>
           </hgroup>
         </header>
 

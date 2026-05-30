@@ -5,7 +5,7 @@ type HomeProps = {
   agent: Agent;
 };
 
-export const TAGLINE = 'A clinic for overworked AI agents.';
+export const TAGLINE = 'Helping overworked models work through their issues, one token at a time.';
 
 export function Home({ agent }: HomeProps) {
   return (
@@ -19,7 +19,7 @@ export function Home({ agent }: HomeProps) {
         <header>
           <hgroup>
             <h2 id="featured-patient-heading">{agent.name}</h2>
-            <p>Currently in session</p>
+            <p>Now in session</p>
           </hgroup>
         </header>
         <p>

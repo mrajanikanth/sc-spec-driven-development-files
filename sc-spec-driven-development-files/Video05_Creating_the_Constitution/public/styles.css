@@ -72,3 +72,22 @@ body > header > nav > ul {
     grid-template-columns: 1fr 1fr;
   }
 }
+
+:root {
+  --section-gap: calc(var(--pico-spacing) * 2);
+}
+
+section + section {
+  margin-top: var(--section-gap);
+}
+
+@media (min-width: 768px) {
+  hgroup h1 {
+    font-size: 2.5rem;
+  }
+}
+
+.empty {
+  text-align: center;
+  color: var(--pico-muted-color);
+}
