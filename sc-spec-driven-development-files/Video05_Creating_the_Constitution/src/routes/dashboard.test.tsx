@@ -55,7 +55,7 @@ describe('GET /dashboard', () => {
     expect(body).toContain('Sonnet the Stoic');
     expect(body).toContain('Committed-Action Circuit');
 
-    expect(body).toContain('Recently added agents');
+    expect(body).toContain('Newly admitted');
     for (const a of listRecentAgents(5)) {
       expect(body).toContain(a.name);
     }

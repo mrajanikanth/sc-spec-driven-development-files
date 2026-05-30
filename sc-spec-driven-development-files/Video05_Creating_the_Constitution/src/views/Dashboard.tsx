@@ -24,12 +24,10 @@ export function Dashboard({ todaysAppointments, recentAgents }: DashboardProps) 
         <section aria-labelledby="today-heading">
           <article>
             <header>
-              <h2 id="today-heading">Today's appointments</h2>
+              <h2 id="today-heading">On the schedule today</h2>
             </header>
             {todaysAppointments.length === 0 ? (
-              <p>
-                <em>No appointments today.</em>
-              </p>
+              <p class="empty">No appointments today.</p>
             ) : (
               <ul>
                 {todaysAppointments.map((appt) => (
@@ -51,12 +49,10 @@ export function Dashboard({ todaysAppointments, recentAgents }: DashboardProps) 
         <section aria-labelledby="recent-heading">
           <article>
             <header>
-              <h2 id="recent-heading">Recently added agents</h2>
+              <h2 id="recent-heading">Newly admitted</h2>
             </header>
             {recentAgents.length === 0 ? (
-              <p>
-                <em>No agents on the books yet.</em>
-              </p>
+              <p class="empty">No agents on the books yet.</p>
             ) : (
               <ul>
                 {recentAgents.map((agent) => (

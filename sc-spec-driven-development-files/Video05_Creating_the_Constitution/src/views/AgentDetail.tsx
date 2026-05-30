@@ -45,9 +45,11 @@ export function AgentDetail({
       </hgroup>
 
       <section aria-labelledby="ailments-heading">
-        <h2 id="ailments-heading">Ailments</h2>
+        <hgroup>
+          <h2 id="ailments-heading">Currently being treated for</h2>
+        </hgroup>
         {ailments.length === 0 ? (
-          <article>
+          <article class="empty">
             <p>This agent isn't currently treating any ailments.</p>
           </article>
         ) : (
@@ -57,13 +59,13 @@ export function AgentDetail({
                 <h3 id={`ailment-${ailment.id}`}>{ailment.name}</h3>
                 <p>{ailment.description}</p>
               </header>
-              <h4>
-                <small>Available therapies</small>
-              </h4>
+              <hgroup>
+                <h4>Available therapies</h4>
+              </hgroup>
               {therapies.length === 0 ? (
-                <p>
-                  <em>No therapies on offer for this ailment yet.</em>
-                </p>
+                <article class="empty">
+                  <p>No therapies on offer for this ailment yet.</p>
+                </article>
               ) : (
                 <ul>
                   {therapies.map((t) => (
@@ -79,16 +81,20 @@ export function AgentDetail({
       </section>
 
       <section aria-labelledby="book-heading">
-        <h2 id="book-heading">Book an appointment</h2>
+        <hgroup>
+          <h2 id="book-heading">Book an appointment</h2>
+        </hgroup>
         <AppointmentForm {...form} />
       </section>
 
       <section aria-labelledby="upcoming-heading">
-        <h2 id="upcoming-heading">Upcoming appointments</h2>
+        <hgroup>
+          <h2 id="upcoming-heading">Upcoming appointments</h2>
+        </hgroup>
         {upcomingAppointments.length === 0 ? (
-          <p>
-            <em>No upcoming appointments. Book one above.</em>
-          </p>
+          <article class="empty">
+            <p>No upcoming appointments. Book one below.</p>
+          </article>
         ) : (
           <ul>
             {upcomingAppointments.map((appt) => (

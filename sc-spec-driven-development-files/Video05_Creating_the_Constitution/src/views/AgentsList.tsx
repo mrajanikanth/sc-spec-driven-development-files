@@ -14,8 +14,8 @@ export function AgentsList({ agents }: AgentsListProps) {
       </hgroup>
 
       {agents.length === 0 ? (
-        <article>
-          <p>No agents on the books yet. Run <code>pnpm db:seed</code> to admit some.</p>
+        <article class="empty">
+          <p>No agents on the books yet. The waiting room is suspiciously quiet.</p>
         </article>
       ) : (
         <div class="card-grid">

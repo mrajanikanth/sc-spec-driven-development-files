@@ -73,11 +73,11 @@ describe('GET /agents/:id', () => {
     expect(body).toMatch(PICO_LINK);
   });
 
-  it('returns 404 with "Agent not found" for an unknown id', async () => {
+  it('returns 404 with themed NotFound page for an unknown id', async () => {
     const res = await app.request('/agents/does-not-exist');
     expect(res.status).toBe(404);
     const body = await res.text();
-    expect(body).toContain('Agent not found');
+    expect(body).toContain('ghosted us');
     expect(body).toMatch(PICO_LINK);
   });
 });
